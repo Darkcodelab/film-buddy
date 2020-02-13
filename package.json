@@ -1,0 +1,16 @@
+{
+  "name": "filmbuddy",
+  "version": "1.0.0",
+  "description": "Discord bot written in javaScript.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Deepan Chakravarthi",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "node-fetch": "^2.6.0",
+    "xmlhttprequest": "^1.8.0"
+  }
+}
