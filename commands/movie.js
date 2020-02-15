@@ -1,12 +1,12 @@
 //IMPORTS
-const config = require('../config.json');
+const config = require("../config.json");
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const {
   RichEmbed
 } = require("discord.js");
 //IMPORTS
 
-//CODE TO EXECUTE 
+//CODE TO EXECUTE
 module.exports = {
   name: "movie",
   description: "information about the requested movie",
@@ -31,19 +31,21 @@ module.exports = {
 
         //Function to test REGEX
         function urlChecker(url) {
-          return urlRegex.test(url) ? url : 'https://github.com/Darkcodelab/film-buddy/blob/master/images/imagenotfound.png?raw=true';
+          return urlRegex.test(url) ?
+            url :
+            "https://github.com/Darkcodelab/film-buddy/blob/master/images/imagenotfound.png?raw=true";
         }
         //Function to test REGEX
 
-        if (movieDetailsJson.Response == 'False') {
-          message.channel.send('Error');
+        if (movieDetailsJson.Response == "False") {
+          message.channel.send("Error");
         } else {
-
           var movieDetailsEmbed = new RichEmbed()
-            .setColor('#FF9999')
+            .setColor("#BBADFF")
             .setTitle(movieDetailsJson.Title)
             // .setThumbnail(urlChecker(movieDetailsJson.Poster))
-            .setDescription(`**Released** : ${movieDetailsJson.Released}\n 
+            .setDescription(
+              `**Released** : ${movieDetailsJson.Released}\n 
           **Rated**: ${movieDetailsJson.Rated}\n
           **Runtime**: ${movieDetailsJson.Runtime}\n
           **Genre**: ${movieDetailsJson.Genre}\n
@@ -58,17 +60,17 @@ module.exports = {
           **Box Office**: ${movieDetailsJson.BoxOffice}\n
           **Production**: ${movieDetailsJson.Production}
           
-          `)
+          `
+            )
             .setImage(urlChecker(movieDetailsJson.Poster))
-            .setTimestamp()
-          message.channel.send(movieDetailsEmbed);
-
+            .setTimestamp();
+          message.channel.send(movieDetailsEmbed).then(function (message) {
+            message.react("👎")
+            message.react("👍")
+          }).catch(function () {
+            msg.channel.send("error")
+          });;
         }
-
-
-
-
-
       } catch (error) {
         console.log(error);
       }
@@ -76,4 +78,4 @@ module.exports = {
     httpGet(movieUrl);
   }
 };
-//CODE TO EXECUTE 
+//CODE TO EXECUTE
