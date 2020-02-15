@@ -1,33 +1,43 @@
+//IMPORTS
 const config = require('./config.json');
-
 const Discord = require("discord.js");
 const client = new Discord.Client();
-
-const fetch = require("node-fetch");
-
 const fs = require("fs");
+//IMPORTS
+
+
+//COMMAND HANDLING
 client.commands = new Discord.Collection();
 
 const commandFiles = fs
   .readdirSync("./commands")
   .filter(file => file.endsWith(".js"));
 
-const prefix = "!fb";
-
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
 }
+//COMMAND HANDLING
 
+//PREFIX
+const prefix = "!fb";
+//PREFIX
+
+
+//BOT ON READY
 client.on("ready", () => {
   console.log(client.user.id);
 });
+//BOT ON READY
 
+
+//BOT ON MESSAGE
 client.on("message", message => {
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
-  const msgArr = message.content.split(" ");
-  const command = msgArr[1];
-  const args = msgArr.splice(2).join(" ");
+  if (!message.content.startsWith(prefix) || message.author.bot) return; //we don't want our bot to reply to its own messages
+
+  const msgArr = message.content.split(" "); //splitting the message and storing it as an array
+  const command = msgArr[1]; //COMMAND
+  const args = msgArr.splice(2).join(" "); //changing an array to a string 
 
   if (!client.commands.has(command)) return;
 
@@ -42,6 +52,7 @@ client.on("message", message => {
     message.reply("there was an error trying to execute that command!");
   }
 });
+//BOT ON MESSAGE
 
 
 
